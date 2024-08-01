@@ -12,6 +12,12 @@ export const AllGames = () => {
 
 
     return (
-        <>Hello</>
+        <div>
+            {games.map(game => 
+                <div key={game.id}>
+                    {game.title}
+                </div>
+            )}
+        </div>
     )
 }
