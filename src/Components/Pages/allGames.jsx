@@ -15,7 +15,7 @@ export const AllGames = () => {
         <div>
             {games.map(game => 
                 <div key={game.id}>
-                    {game.title}
+                    <a href={`games/${game.id}`}>{game.title}</a>
                 </div>
             )}
         </div>
