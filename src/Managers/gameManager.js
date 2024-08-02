@@ -8,3 +8,13 @@ export const FetchAllGames = async () => {
     const games = await response.json()
     return games
 }
+
+export const FetchSingleGame = async (id) => {
+    const response = await fetch(`http://localhost:8000/games/${id}`,{
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`
+        }
+    })
+    const game = await response.json()
+    return game
+}
