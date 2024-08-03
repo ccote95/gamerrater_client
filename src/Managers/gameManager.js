@@ -18,3 +18,16 @@ export const FetchSingleGame = async (id) => {
     const game = await response.json()
     return game
 }
+
+export const SubmitGame = async (game) => {
+    await fetch("http://localhost:8000/games",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(game)
+        }
+    )
+}
