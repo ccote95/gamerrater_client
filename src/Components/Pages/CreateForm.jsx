@@ -1,5 +1,12 @@
+import { useEffect, useState } from "react"
+import { FetchAllCategories } from "../../Managers/categoryManager.js"
+
 export const CreateForm = () => {
-    
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        FetchAllCategories().then(setCategories)
+    },[])
 
     return(
         <div>
@@ -10,7 +17,12 @@ export const CreateForm = () => {
                 </fieldset>
                 <fieldset>
                     <label>Category</label>
-                    <select name="categories"></select>
+                    <select name="categories">
+                        <option>Select a Category</option>
+                        {categories.map(c => (
+                            <option>{c.name}</option>
+                        ))}
+                    </select>
                 </fieldset>
                 <fieldset>
                     <label>Designer</label>
