@@ -24,7 +24,8 @@ export const SubmitGame = async (game) => {
         {
             method: "POST",
             headers: {
-                "Authorization": `Token${JSON.parse(localStorage.getItem("rock_token")).token}`
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(game)
         }

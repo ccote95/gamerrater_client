@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { FetchAllCategories } from "../../Managers/categoryManager.js"
+import { SubmitGame } from "../../Managers/gameManager.js"
+import { useNavigate } from "react-router-dom"
 
 export const CreateForm = () => {
     const [categories, setCategories] = useState([])
@@ -11,13 +13,31 @@ export const CreateForm = () => {
     const [estimatedPlayTime, setEstimatedPlayTime] = useState()
     const [ageRecommendation, setAgeRecommendation] = useState()
 
+    const navigate = useNavigate()
     useEffect(() => {
         FetchAllCategories().then(setCategories)
     },[])
 
+    const createGame = async (e) => {
+        e.preventDefault()
+        const newGame = {
+            title: title,
+            categories: categoryId,
+            designer: designer,
+            year_released: yearReleased,
+            num_of_players: numberOfPlayers,
+            estimated_play_time: estimatedPlayTime,
+            age_recommendation: ageRecommendation
+        }
+         await SubmitGame(newGame).then(() => {
+            navigate("/allgames")
+        })
+    }
+
+
     return(
         <div>
-            <form>
+            <form onSubmit={createGame}>
                 <fieldset>
                     <label>Game Title</label>
                     <input
