@@ -5,6 +5,7 @@ import { Authorized } from "./Authorized.jsx"
 import { AllGames } from "./Pages/allGames.jsx"
 import { Register } from "./Pages/Register.jsx"
 import { GameDetails } from "./Pages/GameDetails.jsx"
+import { CreateForm } from "./Pages/CreateForm.jsx"
 
 export const ApplicationViews= () => {
     
@@ -16,13 +17,15 @@ export const ApplicationViews= () => {
             <Route path="/register" element={<Register />} />
             <Route element={<Authorized />}>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/allgames">
-                    <Route index  element={<AllGames/>}/>
-                    <Route path=":id">
-                        <Route index element={<GameDetails/>}/>
+                    <Route path="/allgames">
+                        <Route index  element={<AllGames/>}/>
+                        <Route path=":id">
+                            <Route index element={<GameDetails/>}/>
+                        </Route>
                     </Route>
-                </Route>
-            
+                    <Route path="/create">
+                        <Route index element={<CreateForm/>}/>
+                    </Route>
             </Route>
         </Routes>
     )
