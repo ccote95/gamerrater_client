@@ -13,7 +13,7 @@ export const GameDetails = () => {
     return(
         <div>
             <div>
-                <button onClick={() => navigate(`/games/:${id}(/d+)/review`)}>Leave a Review!</button>
+                <button onClick={() => navigate(`/games/${id}(/d+)/review`)}>Leave a Review!</button>
             </div>
             <div>
             Game Title: {game?.title}
