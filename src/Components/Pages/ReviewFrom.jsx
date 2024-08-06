@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
+import { SubmitReview } from "../../Managers/reviewManager.js"
 
 export const ReviewForm = () => {
     const [review, setReview] = useState("")
     const [game, setGame] = useState([])
     const {gameId} = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         FetchSingleGame(gameId).then(setGame)
     },[])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+       const newReview = {
+            review: review,
+            game_id: parseInt(gameId)
+        }
+    await SubmitReview(newReview)
+    navigate(`../allgames/${gameId}`)
+    }
     return(
         <div>
             <div>
@@ -19,7 +31,7 @@ export const ReviewForm = () => {
                 <textarea onChange={e => setReview(e.target.value)}/>
             </div>
             <div>
-                <button>Submit</button>
+                <button onClick={(e) => handleSubmit(e)}>Submit</button>
             </div>
         </div>
     )
