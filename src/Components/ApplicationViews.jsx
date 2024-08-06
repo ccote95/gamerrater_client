@@ -6,6 +6,7 @@ import { AllGames } from "./Pages/allGames.jsx"
 import { Register } from "./Pages/Register.jsx"
 import { GameDetails } from "./Pages/GameDetails.jsx"
 import { CreateForm } from "./Pages/CreateForm.jsx"
+import { ReviewForm } from "./Pages/ReviewFrom.jsx"
 
 export const ApplicationViews= () => {
     
@@ -23,9 +24,9 @@ export const ApplicationViews= () => {
                             <Route index element={<GameDetails/>}/>
                         </Route>
                     </Route>
-                    <Route path="/create">
-                        <Route index element={<CreateForm/>}/>
-                    </Route>
+                    <Route path="/create" element={<CreateForm/>}/>
+                    <Route path="/games/:gameId(/d+)/review" element={<ReviewForm/>}/>
+                    
             </Route>
         </Routes>
     )
