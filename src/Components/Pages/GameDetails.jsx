@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
+import { FetchAllReviewsForGame } from "../../Managers/reviewManager.js"
 
 export const GameDetails = () => {
     const [game, setGame] = useState()
+    const [reviews, setReviews] = useState([])
     const {id} = useParams()
     const navigate = useNavigate()
+
+
     useEffect(() => {
         FetchSingleGame(id).then(setGame)
+        FetchAllReviewsForGame(id).then(setReviews)
     },[])
 
     return(
@@ -44,6 +49,20 @@ export const GameDetails = () => {
                     </li>
                 ))}
             </ul>
+            <div>
+                <h3>Reviews:</h3>
+                {reviews?.map(r => (
+                    <div>
+                        <div>
+                            <h4>{r.player.first_name}</h4>
+                        </div>
+                        <div>
+                            <p>{r.review}</p>
+                        </div>
+                    </div>
+
+                ))}
+            </div>
         </div>
     )
 }

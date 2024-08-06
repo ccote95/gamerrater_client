@@ -12,8 +12,8 @@ export const SubmitReview = async (review) => {
     )
 }
 
-export const FetchAllReviews = async () => {
-    const response = await fetch("https://localhost:8000/reviews",
+export const FetchAllReviewsForGame = async (gameId) => {
+    const response = await fetch(`http://localhost:8000/reviews?game=${gameId}`,
         {
             headers: 
             {
