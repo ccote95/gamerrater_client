@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export const GameDetails = () => {
     const [game, setGame] = useState()
     const {id} = useParams()
+    const navigate = useNavigate()
     useEffect(() => {
         FetchSingleGame(id).then(setGame)
     },[])
 
     return(
         <div>
+            <div>
+                <button onClick={() => navigate(`/games/:${id}(/d+)/review`)}>Leave a Review!</button>
+            </div>
             <div>
             Game Title: {game?.title}
             </div>
