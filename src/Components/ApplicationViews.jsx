@@ -7,6 +7,7 @@ import { Register } from "./Pages/Register.jsx"
 import { GameDetails } from "./Pages/GameDetails.jsx"
 import { CreateForm } from "./Pages/CreateForm.jsx"
 import { ReviewForm } from "./Pages/ReviewFrom.jsx"
+import { UpdateForm } from "./Pages/GameUpdateForm.jsx"
 
 export const ApplicationViews= () => {
     
@@ -22,6 +23,7 @@ export const ApplicationViews= () => {
                         <Route index  element={<AllGames/>}/>
                         <Route path=":id">
                             <Route index element={<GameDetails/>}/>
+                            <Route path="edit" element={<UpdateForm/>}/>
                         </Route>
                     </Route>
                     <Route path="/create" element={<CreateForm/>}/>
