@@ -25,7 +25,7 @@ export const ApplicationViews= () => {
                         </Route>
                     </Route>
                     <Route path="/create" element={<CreateForm/>}/>
-                    <Route path="/games/:gameId(/d+)/review" element={<ReviewForm/>}/>
+                    <Route path="/games/:gameId/review" element={<ReviewForm/>}/>
                     
             </Route>
         </Routes>
