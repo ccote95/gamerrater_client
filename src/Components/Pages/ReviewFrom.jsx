@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { SubmitReview } from "../../Managers/reviewManager.js"
+import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
 
 export const ReviewForm = () => {
     const [review, setReview] = useState("")
@@ -23,16 +24,19 @@ export const ReviewForm = () => {
     navigate(`../allgames/${gameId}`)
     }
     return(
-        <div>
-            <div>
+        <Card className="w-25 mx-auto">
+            <CardTitle className="mx-auto fw-bold fs-4">
                 {game.title}
-            </div>
-            <div>
-                <textarea onChange={e => setReview(e.target.value)}/>
-            </div>
-            <div>
-                <button onClick={(e) => handleSubmit(e)}>Submit</button>
-            </div>
-        </div>
+            </CardTitle>
+            <CardBody>
+                <textarea className="" 
+                    style={{width: "100%", height: "100px"}} 
+                    placeholder="Leave A Review"
+                    onChange={e => setReview(e.target.value)}/>
+            </CardBody>
+            <CardFooter className="d-flex justify-content-end">
+                <Button type= "button" className="btn-success" onClick={(e) => handleSubmit(e)}>Submit</Button>
+            </CardFooter>
+        </Card>
     )
 }
