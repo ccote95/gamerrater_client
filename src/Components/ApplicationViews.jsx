@@ -11,10 +11,7 @@ import { UpdateForm } from "./Pages/GameUpdateForm.jsx"
 import { useState } from "react"
 
 export const ApplicationViews= () => {
-    const [currentUser, setCurrentUser] = useState(null)
 
-    // const user = JSON.parse(localStorage.getItem('rock_token')); // Example using local storage
-    // setCurrentUser(user);
 
 
     return (
@@ -26,7 +23,7 @@ export const ApplicationViews= () => {
                     <Route path="/allgames">
                         <Route index  element={<AllGames/>}/>
                         <Route path=":id">
-                            <Route index element={<GameDetails currentUser={currentUser}/>}/>
+                            <Route index element={<GameDetails/>}/>
                             <Route path="edit" element={<UpdateForm/>}/>
                         </Route>
                     </Route>
