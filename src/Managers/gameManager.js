@@ -32,8 +32,8 @@ export const SubmitGame = async (game) => {
     )
 }
 
-export const UpdateGame = async (game) => {
-    await fetc("http://localhost:8000/games",
+export const UpdateGame = async (id, game) => {
+    await fetch(`http://localhost:8000/games/${id}`,
         {
             method: "PUT",
             headers: {

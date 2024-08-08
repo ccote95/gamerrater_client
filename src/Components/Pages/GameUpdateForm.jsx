@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Button, Form, Label, Spinner } from "reactstrap"
 import { FormGroup, Input } from "reactstrap"
-import { FetchSingleGame } from "../../Managers/gameManager.js"
+import { FetchSingleGame, UpdateGame } from "../../Managers/gameManager.js"
 import { FetchAllCategories } from "../../Managers/categoryManager.js"
 
 export const UpdateForm = () => {
@@ -29,12 +29,29 @@ export const UpdateForm = () => {
     },[id])
 
     const handleCategoryChange = (e) => {
-        setGame({...game, categories:parseInt(e.target.value)})
+        setGame({...game, categories: [parseInt(e.target.value)]})
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const updatedGame = {
+            title: game.title,
+            categories: game.categories, 
+            designer: game.designer,
+            description: game.description,
+            year_released: game.year_released,
+            num_of_players: game.num_of_players,
+            estimated_play_time: game.estimated_play_time,
+            age_recommendation: game.age_recommendation,
+        }
+        UpdateGame(id,updatedGame).then(() => {
+            navigate(`/allgames/${id}`)
+        })
     }
 
     if (!game || !game.categories) return (<Spinner/>)
     return(
-        <Form className="w-50 mx-auto">
+        <Form className="w-50 mx-auto" onSubmit={handleSubmit}>
             <FormGroup>
                 <Label>Title</Label>
                 <Input
