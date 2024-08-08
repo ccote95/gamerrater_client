@@ -25,7 +25,9 @@ export const GameDetails = (currentUser) => {
         <Card className="w-75 mx-auto">
         <CardHeader className="fw-bold fs-2 d-flex">
               <div className="w-25">
-                <Button  className="btn-success" onClick={() => navigate(`/games/${id}/review`)}>Leave a Review!</Button>
+                {game?.is_owner == false && (
+                  <Button  className="btn-success" onClick={() => navigate(`/games/${id}/review`)}>Leave a Review!</Button>
+                )}
               </div>
           <CardTitle className="w-75 d-flex justify-content-start " style={{marginLeft: "300px"}}>
             {game?.title}
@@ -64,13 +66,20 @@ export const GameDetails = (currentUser) => {
             <div>
               <h3>Reviews:</h3>
               {reviews?.map(r => (
-                <Card className="w-50 shadow" key={r.id}>
+                <Card className="w-50 shadow mt-4" key={r.id}>
                   <CardHeader>
                     <h4>{r.player.first_name}</h4>
                   </CardHeader>
                   <CardBody>
                     <p>{r.review}</p>
                   </CardBody>
+                  {r.is_owner  && (
+                    <CardFooter>
+                      <Button className="btn-success">Edit</Button>
+                      <Button className="btn-danger" style={{float: "right"}}>Delete</Button>
+                    </CardFooter>
+
+                  )}
                 </Card>
               ))}
             </div>
