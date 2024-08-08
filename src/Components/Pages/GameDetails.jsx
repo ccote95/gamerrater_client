@@ -78,7 +78,7 @@ export const GameDetails = (currentUser) => {
         </div>
         {game?.is_owner && (
         <CardFooter>
-            <Button>Update</Button>
+            <Button onClick={() => navigate(`/allgames/${id}/edit`)}>Update</Button>
         </CardFooter>
 
         )}
