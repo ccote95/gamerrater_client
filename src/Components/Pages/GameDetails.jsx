@@ -19,7 +19,7 @@ export const GameDetails = (currentUser) => {
         FetchAllReviewsForGame(id).then(setReviews)
 
 
-    },[])
+    },[id, reviews])
 
     return(
         <Card className="w-75 mx-auto shadow">
