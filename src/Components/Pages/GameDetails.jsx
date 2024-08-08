@@ -2,18 +2,23 @@ import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
 import { FetchAllReviewsForGame } from "../../Managers/reviewManager.js"
-import { Button, Card, CardBody, CardHeader, CardTitle } from "reactstrap"
+import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
 
-export const GameDetails = () => {
+
+export const GameDetails = (currentUser) => {
     const [game, setGame] = useState()
     const [reviews, setReviews] = useState([])
     const {id} = useParams()
     const navigate = useNavigate()
 
+    const isOwner = game && currentUser && game.ownerId === currentUser.id;
+
 
     useEffect(() => {
         FetchSingleGame(id).then(setGame)
         FetchAllReviewsForGame(id).then(setReviews)
+
+
     },[])
 
     return(
@@ -50,7 +55,7 @@ export const GameDetails = () => {
           <CardBody className="w-50">
             <div className="fs-3 fw-bold">Categories:</div>
             <ul>
-              {game?.categories.map(category => (
+              {game?.categories?.map(category => (
                 <li className="fs-4" key={category.id}>
                   {category.name}
                 </li>
@@ -71,6 +76,12 @@ export const GameDetails = () => {
             </div>
           </CardBody>
         </div>
+        {game?.is_owner && (
+        <CardFooter>
+            <Button>Update</Button>
+        </CardFooter>
+
+        )}
       </Card>
     )
 }

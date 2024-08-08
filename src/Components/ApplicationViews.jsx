@@ -8,9 +8,13 @@ import { GameDetails } from "./Pages/GameDetails.jsx"
 import { CreateForm } from "./Pages/CreateForm.jsx"
 import { ReviewForm } from "./Pages/ReviewFrom.jsx"
 import { UpdateForm } from "./Pages/GameUpdateForm.jsx"
+import { useState } from "react"
 
 export const ApplicationViews= () => {
-    
+    const [currentUser, setCurrentUser] = useState(null)
+
+    // const user = JSON.parse(localStorage.getItem('rock_token')); // Example using local storage
+    // setCurrentUser(user);
 
 
     return (
@@ -22,12 +26,12 @@ export const ApplicationViews= () => {
                     <Route path="/allgames">
                         <Route index  element={<AllGames/>}/>
                         <Route path=":id">
-                            <Route index element={<GameDetails/>}/>
+                            <Route index element={<GameDetails currentUser={currentUser}/>}/>
                             <Route path="edit" element={<UpdateForm/>}/>
                         </Route>
                     </Route>
                     <Route path="/create" element={<CreateForm/>}/>
-                    <Route path="/games/:gameId/review" element={<ReviewForm/>}/>
+                    <Route path="/games/:gameId/review" element={<ReviewForm />}/>
                     
             </Route>
         </Routes>
