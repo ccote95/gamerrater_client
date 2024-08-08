@@ -7,9 +7,11 @@ import { Register } from "./Pages/Register.jsx"
 import { GameDetails } from "./Pages/GameDetails.jsx"
 import { CreateForm } from "./Pages/CreateForm.jsx"
 import { ReviewForm } from "./Pages/ReviewFrom.jsx"
+import { UpdateForm } from "./Pages/GameUpdateForm.jsx"
+import { useState } from "react"
 
 export const ApplicationViews= () => {
-    
+
 
 
     return (
@@ -22,10 +24,11 @@ export const ApplicationViews= () => {
                         <Route index  element={<AllGames/>}/>
                         <Route path=":id">
                             <Route index element={<GameDetails/>}/>
+                            <Route path="edit" element={<UpdateForm/>}/>
                         </Route>
                     </Route>
                     <Route path="/create" element={<CreateForm/>}/>
-                    <Route path="/games/:gameId/review" element={<ReviewForm/>}/>
+                    <Route path="/games/:gameId/review" element={<ReviewForm />}/>
                     
             </Route>
         </Routes>
