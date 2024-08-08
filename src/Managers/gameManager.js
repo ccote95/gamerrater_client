@@ -31,3 +31,16 @@ export const SubmitGame = async (game) => {
         }
     )
 }
+
+export const UpdateGame = async (game) => {
+    await fetc("http://localhost:8000/games",
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`,
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(game)
+        }
+    )
+}
