@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
-import { FetchAllReviewsForGame } from "../../Managers/reviewManager.js"
+import { FetchAllReviewsForGame, RemoveReview } from "../../Managers/reviewManager.js"
 import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
 
 
@@ -22,7 +22,7 @@ export const GameDetails = (currentUser) => {
     },[])
 
     return(
-        <Card className="w-75 mx-auto">
+        <Card className="w-75 mx-auto shadow">
         <CardHeader className="fw-bold fs-2 d-flex">
               <div className="w-25">
                 {game?.is_owner == false && (
@@ -51,7 +51,7 @@ export const GameDetails = (currentUser) => {
               Number of Players: {game?.num_of_players}
             </div>
             <div className="fs-4">
-              Estimated Play Time: {game?.estimated_play_time}
+              Estimated Play Time: {game?.estimated_play_time} hours
             </div>
           </CardBody>
           <CardBody className="w-50">
@@ -75,8 +75,10 @@ export const GameDetails = (currentUser) => {
                   </CardBody>
                   {r.is_owner  && (
                     <CardFooter>
-                      <Button className="btn-success">Edit</Button>
-                      <Button className="btn-danger" style={{float: "right"}}>Delete</Button>
+                      <Button className="btn-danger" 
+                        onClick={() => {RemoveReview(r.id)}}
+                        style={{float: "right"}}>
+                        Delete</Button>
                     </CardFooter>
 
                   )}
