@@ -23,3 +23,15 @@ export const FetchAllReviewsForGame = async (gameId) => {
         const reviews = await response.json()
         return reviews
 }
+
+export const RemoveReview = async (reviewId) =>  {
+    await fetch(`http://localhost:8000/reviews/${reviewId}`,
+        {
+            method: "DELETE",
+            headers: 
+            {
+                Authorization: `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`
+            }
+        }
+    )
+}

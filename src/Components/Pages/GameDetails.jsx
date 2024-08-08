@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
-import { FetchAllReviewsForGame } from "../../Managers/reviewManager.js"
+import { FetchAllReviewsForGame, RemoveReview } from "../../Managers/reviewManager.js"
 import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
 
 
@@ -19,13 +19,15 @@ export const GameDetails = (currentUser) => {
         FetchAllReviewsForGame(id).then(setReviews)
 
 
-    },[])
+    },[id, reviews])
 
     return(
-        <Card className="w-75 mx-auto">
+        <Card className="w-75 mx-auto shadow">
         <CardHeader className="fw-bold fs-2 d-flex">
               <div className="w-25">
-                <Button  className="btn-success" onClick={() => navigate(`/games/${id}/review`)}>Leave a Review!</Button>
+                {game?.is_owner == false && (
+                  <Button  className="btn-success" onClick={() => navigate(`/games/${id}/review`)}>Leave a Review!</Button>
+                )}
               </div>
           <CardTitle className="w-75 d-flex justify-content-start " style={{marginLeft: "300px"}}>
             {game?.title}
@@ -49,7 +51,7 @@ export const GameDetails = (currentUser) => {
               Number of Players: {game?.num_of_players}
             </div>
             <div className="fs-4">
-              Estimated Play Time: {game?.estimated_play_time}
+              Estimated Play Time: {game?.estimated_play_time} hours
             </div>
           </CardBody>
           <CardBody className="w-50">
@@ -64,13 +66,22 @@ export const GameDetails = (currentUser) => {
             <div>
               <h3>Reviews:</h3>
               {reviews?.map(r => (
-                <Card className="w-50 shadow" key={r.id}>
+                <Card className="w-50 shadow mt-4" key={r.id}>
                   <CardHeader>
                     <h4>{r.player.first_name}</h4>
                   </CardHeader>
                   <CardBody>
                     <p>{r.review}</p>
                   </CardBody>
+                  {r.is_owner  && (
+                    <CardFooter>
+                      <Button className="btn-danger" 
+                        onClick={() => {RemoveReview(r.id)}}
+                        style={{float: "right"}}>
+                        Delete</Button>
+                    </CardFooter>
+
+                  )}
                 </Card>
               ))}
             </div>
