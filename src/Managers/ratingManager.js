@@ -1,5 +1,5 @@
-export const SubmitRating = async (gameId, rating) => {
-    const response = await fetch(`http://localhost:8000/ratings?game=${gameId}`,
+export const SubmitRating = async (rating) => {
+    await fetch(`http://localhost:8000/ratings`,
         {
             method: "POST",
             headers: 
