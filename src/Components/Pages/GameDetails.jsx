@@ -2,12 +2,13 @@ import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
 import { FetchAllReviewsForGame, RemoveReview } from "../../Managers/reviewManager.js"
-import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
+import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Input, Label } from "reactstrap"
 
 
 export const GameDetails = (currentUser) => {
     const [game, setGame] = useState()
     const [reviews, setReviews] = useState([])
+    const [rating, setRating] = useState(0)
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -84,6 +85,16 @@ export const GameDetails = (currentUser) => {
                   )}
                 </Card>
               ))}
+            </div>
+            <div>
+            <Label>Rate This Game</Label>
+            <Input name="range"
+              type="range"
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}/>
+              <div>
+                <Button className="btn-success" style={{float: "right"}}>Submit</Button>
+              </div>
             </div>
           </CardBody>
         </div>
