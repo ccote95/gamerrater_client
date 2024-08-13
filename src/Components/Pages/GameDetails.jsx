@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { FetchSingleGame } from "../../Managers/gameManager.js"
 import { useNavigate, useParams } from "react-router-dom"
 import { FetchAllReviewsForGame, RemoveReview } from "../../Managers/reviewManager.js"
-import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle } from "reactstrap"
+import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Input, Label } from "reactstrap"
+import { SubmitRating } from "../../Managers/ratingManager.js"
 
 
 export const GameDetails = (currentUser) => {
     const [game, setGame] = useState()
     const [reviews, setReviews] = useState([])
+    const [rating, setRating] = useState(0)
     const {id} = useParams()
     const navigate = useNavigate()
 
@@ -19,7 +21,15 @@ export const GameDetails = (currentUser) => {
         FetchAllReviewsForGame(id).then(setReviews)
 
 
-    },[id, reviews])
+    },[id])
+
+    const handleSubmit = async (e) => {
+      const newRating = {
+        rating: rating,
+        game_id: parseInt(id)
+      }
+      await SubmitRating(newRating)
+    }
 
     return(
         <Card className="w-75 mx-auto shadow">
@@ -53,6 +63,9 @@ export const GameDetails = (currentUser) => {
             <div className="fs-4">
               Estimated Play Time: {game?.estimated_play_time} hours
             </div>
+            <div className="fs-4">
+              Average Rating: {game?.average_rating}
+            </div>
           </CardBody>
           <CardBody className="w-50">
             <div className="fs-3 fw-bold">Categories:</div>
@@ -64,6 +77,18 @@ export const GameDetails = (currentUser) => {
               ))}
             </ul>
             <div>
+            <div>
+            <Label className="fs-4 fw-bold">Rate This Game</Label>
+            <Input name="range"
+              type="range"
+              value={rating}
+              min={1}
+              max={10}
+              onChange={(e) => setRating(e.target.value)}/>
+              <div>
+                <Button onClick={(e) => {handleSubmit(e)}} className="btn-success" style={{float: "right"}}>Submit</Button>
+              </div>
+            </div>
               <h3>Reviews:</h3>
               {reviews?.map(r => (
                 <Card className="w-50 shadow mt-4" key={r.id}>
