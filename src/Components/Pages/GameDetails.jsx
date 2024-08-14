@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { FetchAllReviewsForGame, RemoveReview } from "../../Managers/reviewManager.js"
 import { Button, Card, CardBody, CardFooter, CardHeader, CardTitle, Input, Label } from "reactstrap"
 import { SubmitRating } from "../../Managers/ratingManager.js"
+import { formatDate } from "./GameUpdateForm.jsx"
 
 
 export const GameDetails = (currentUser) => {
@@ -32,6 +33,7 @@ export const GameDetails = (currentUser) => {
     }
 
     return(
+      <div>
         <Card className="w-75 mx-auto shadow">
         <CardHeader className="fw-bold fs-2 d-flex">
               <div className="w-25">
@@ -55,7 +57,7 @@ export const GameDetails = (currentUser) => {
               Designer: {game?.designer}
             </div>
             <div className="fs-4">
-              Year Released: {game?.year_released}
+              Year Released: {formatDate(game?.year_released)}
             </div>
             <div className="fs-4">
               Number of Players: {game?.num_of_players}
@@ -78,7 +80,7 @@ export const GameDetails = (currentUser) => {
             </ul>
             <div>
             <div>
-            <Label className="fs-4 fw-bold">Rate This Game</Label>
+            <Label className="fs-4 fw-bold">Rate This Game: {rating}</Label>
             <Input name="range"
               type="range"
               value={rating}
@@ -89,35 +91,36 @@ export const GameDetails = (currentUser) => {
                 <Button onClick={(e) => {handleSubmit(e)}} className="btn-success" style={{float: "right"}}>Submit</Button>
               </div>
             </div>
-              <h3>Reviews:</h3>
-              {reviews?.map(r => (
-                <Card className="w-50 shadow mt-4" key={r.id}>
-                  <CardHeader>
-                    <h4>{r.player.first_name}</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <p>{r.review}</p>
-                  </CardBody>
-                  {r.is_owner  && (
-                    <CardFooter>
-                      <Button className="btn-danger" 
-                        onClick={() => {RemoveReview(r.id)}}
-                        style={{float: "right"}}>
-                        Delete</Button>
-                    </CardFooter>
-
-                  )}
-                </Card>
-              ))}
             </div>
           </CardBody>
         </div>
         {game?.is_owner && (
-        <CardFooter>
+          <CardFooter>
             <Button onClick={() => navigate(`/allgames/${id}/edit`)}>Update</Button>
         </CardFooter>
-
-        )}
+)}
       </Card>
+      <div>
+      {reviews?.map(r => (
+        <Card className="mx-auto w-50 shadow mt-4" key={r.id}>
+          <CardHeader>
+            <h4>{r.player.first_name}</h4>
+          </CardHeader>
+          <CardBody className="fs-2">
+            <p>{r.review}</p>
+          </CardBody>
+          {r.is_owner  && (
+            <CardFooter>
+              <Button className="btn-danger" 
+                onClick={() => {RemoveReview(r.id)}}
+                style={{float: "right"}}>
+                Delete</Button>
+            </CardFooter>
+
+          )}
+        </Card>
+      ))}
+      </div>
+</div>
     )
 }
