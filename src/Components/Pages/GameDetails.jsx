@@ -80,7 +80,7 @@ export const GameDetails = (currentUser) => {
             </ul>
             <div>
             <div>
-            <Label className="fs-4 fw-bold">Rate This Game: {rating}</Label>
+            <Label className="fs-4 fw-bold mt-5">Rate This Game: {rating}</Label>
             <Input name="range"
               type="range"
               value={rating}
