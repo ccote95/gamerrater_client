@@ -1,7 +1,12 @@
-export const FetchAllGames = async (searchQuery = "") => {
-    const url = searchQuery 
-        ? `http://localhost:8000/games?q=${encodeURIComponent(searchQuery)}`
-        : "http://localhost:8000/games";
+export const FetchAllGames = async (searchQuery = "", orderBy="") => {
+    let url = "http://localhost:8000/games";
+        if (searchQuery){
+            url += `q=${encodeURIComponent(searchQuery)}`
+        }
+
+        if (orderBy){
+            url += searchQuery ? `&order_by=${encodeURIComponent(orderBy)}` : `?order_by=${encodeURIComponent(orderBy)}`
+        }
     
     const response = await fetch(url, {
         headers: {
