@@ -79,18 +79,20 @@ export const GameDetails = (currentUser) => {
               ))}
             </ul>
             <div>
-            <div>
-            <Label className="fs-4 fw-bold mt-5">Rate This Game: {rating}</Label>
-            <Input name="range"
-              type="range"
-              value={rating}
-              min={1}
-              max={10}
-              onChange={(e) => setRating(e.target.value)}/>
+              {game?.has_rated == false && (
               <div>
-                <Button onClick={(e) => {handleSubmit(e)}} className="btn-success" style={{float: "right"}}>Submit</Button>
+                <Label className="fs-4 fw-bold mt-5">Rate This Game: {rating}</Label>
+                <Input name="range"
+                  type="range"
+                  value={rating}
+                  min={1}
+                  max={10}
+                  onChange={(e) => setRating(e.target.value)}/>
+                <div>
+                  <Button onClick={(e) => {handleSubmit(e)}} className="btn-success" style={{float: "right"}}>Submit</Button>
+                </div>
               </div>
-            </div>
+              )}
             </div>
           </CardBody>
         </div>
