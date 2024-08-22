@@ -29,7 +29,7 @@ export const NavBar = () => {
                     {
                         (localStorage.getItem("rock_token") !== null) ?
                             <NavItem>
-                                <Button color="link" className="text-blue-600 hover:text-purple-700"
+                                <Button color='primary'
                                     onClick={() => {
                                         localStorage.removeItem("rock_token");
                                         navigate('/login');
