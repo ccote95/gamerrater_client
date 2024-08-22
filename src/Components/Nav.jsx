@@ -14,7 +14,7 @@ export const NavBar = () => {
         <div>
             <Navbar color="light" light>
                 <NavbarBrand href='/'>Gamer Rater</NavbarBrand>
-                <NavbarToggler onClick={toggleNavbar} className='mx-auto'/>
+                <NavbarToggler onClick={toggleNavbar} className=''/>
                     <Collapse isOpen={!collapsed} navbar>
                 <Nav navbar>
                     <NavItem className="pl-2">

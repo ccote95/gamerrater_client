@@ -41,10 +41,16 @@ export const AllGames = () => {
         <div>
             {games.map(game => 
                 <Card key={game.id} className="mt-3 w-50 mx-auto shadow" style={{background: "grey"}}>
+                    <div>
                     {game.categories?.map(category =>(
-                        <Badge className="ms-2 mt-1 " color="primary" style={{width: "10%",}}>{category.name}</Badge>
+                        <Badge className="ms-2 mt-1 " color="primary">{category.name}</Badge>
                     ))}
-                    <Badge className="ms-2 mt-1 " color="info" style={{width: "10%"}}>{game.designer}</Badge>
+
+                    </div>
+                    <div>
+                    <Badge className="ms-2 mt-1 " color="info">{game.designer}</Badge>
+
+                    </div>
                     <CardTitle className="mx-auto fs-2" style={{color: "white"}}>
                         <Link to={`/allgames/${game.id}`} style={{textDecoration: 'none', color: "inherit"}}>
                         {game.title}
